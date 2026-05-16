@@ -1618,19 +1618,24 @@ iframe { display: block; }
     overflow: hidden;
     box-shadow: 0 22px 50px rgba(0,0,0,0.25);
     transition: transform 0.9s cubic-bezier(.22,1,.36,1), opacity 0.9s ease, filter 0.9s ease;
+    will-change: transform, opacity;
   }
   .card1 {
     top: 14%;
     z-index: 2;
+    animation-delay: 0s;
   }
   .card2 {
     bottom: 12%;
     z-index: 1;
+    animation-delay: 0.6s;
   }
   .about-img-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: floatImg 7s ease-in-out infinite alternate;
+    will-change: transform;
   }
   .about-years-badge {
     position: absolute;
@@ -1645,6 +1650,7 @@ iframe { display: block; }
     background: var(--red);
     box-shadow: 0 22px 64px rgba(232,0,29,0.32);
     transition: transform 0.9s ease, box-shadow 0.9s ease;
+    will-change: transform;
   }
   .about-img-stack.swapped .card1 {
     top: auto;
@@ -1668,6 +1674,14 @@ iframe { display: block; }
     border-radius: 22px;
     background: rgba(255,255,255,0.04);
     pointer-events: none;
+  }
+  @keyframes floatImg {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-10px);
+    }
   }
   .services-grid { grid-template-columns: 1fr; }
   .portfolio-grid { grid-template-columns: 1fr; }
