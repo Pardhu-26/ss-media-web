@@ -186,8 +186,11 @@
 // =============================================
 (function () {
   const btn = document.getElementById('backToTop');
+  const whatsappBtn = document.querySelector('.whatsapp-float-btn');
   window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
+    const shouldShow = window.scrollY > 400;
+    btn.classList.toggle('visible', shouldShow);
+    if (whatsappBtn) whatsappBtn.classList.toggle('visible', shouldShow);
   }, { passive: true });
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
