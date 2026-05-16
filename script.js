@@ -620,23 +620,37 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // =============================================
 (function () {
   const stats = document.querySelectorAll('.stat-num');
-  const targets = [500, 13, 300];
+  const targets = [500, 20, 300];
   let animated = false;
 
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+  const animateStat = (el, target, duration = 1200) => {
+    const suffixMatch = el.textContent.match(/[^0-9]+/);
+    const suffix = suffixMatch ? suffixMatch[0] : '+';
+    const startTime = performance.now();
+
+    const tick = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = easeOutCubic(progress);
+      el.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    };
+
+    requestAnimationFrame(tick);
+  };
+
   const observer = new IntersectionObserver((entries) => {
-    if (!animated && entries.some(e => e.isIntersecting)) {
+    if (animated) return;
+    if (entries.some(entry => entry.isIntersecting)) {
       animated = true;
       stats.forEach((el, i) => {
-        const target = targets[i];
-        const suffix = el.textContent.replace(/[0-9]/g, '');
-        let count = 0;
-        const step = Math.ceil(target / 60);
-        const timer = setInterval(() => {
-          count = Math.min(count + step, target);
-          el.textContent = count + suffix;
-          if (count >= target) clearInterval(timer);
-        }, 30);
+        const target = targets[i] || 0;
+        animateStat(el, target, 1200 + i * 120);
       });
+      observer.disconnect();
     }
   }, { threshold: 0.5 });
 
