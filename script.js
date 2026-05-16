@@ -280,40 +280,9 @@
 })();
 
 // =============================================
-// 8.1 ABOUT IMAGE ORBIT SWAP (MOBILE ONLY)
+// 8.1 ABOUT MOBILE IMAGE LAYOUT
 // =============================================
-(function () {
-  const stack = document.querySelector('.about-img-stack');
-  if (!stack) return;
-
-  let intervalId = null;
-
-  const isMobile = () => window.innerWidth <= 768;
-  const startSwap = () => {
-    if (intervalId) return;
-    intervalId = window.setInterval(() => {
-      stack.classList.toggle('swapped');
-    }, 4000);
-  };
-
-  const stopSwap = () => {
-    if (!intervalId) return;
-    window.clearInterval(intervalId);
-    intervalId = null;
-    stack.classList.remove('swapped');
-  };
-
-  const handleResize = () => {
-    if (isMobile()) {
-      startSwap();
-    } else {
-      stopSwap();
-    }
-  };
-
-  window.addEventListener('resize', handleResize, { passive: true });
-  handleResize();
-})();
+// Mobile-only layout is handled via CSS for a top badge and side-by-side cards.
 
 // =============================================
 // 9. REVIEW FORM VALIDATION & MODAL MANAGEMENT
