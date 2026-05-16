@@ -625,7 +625,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // =============================================
 (function () {
   const stats = document.querySelectorAll('.stat-num');
-  const targets = [500, 20, 300];
+  const targets = [5000, 20, 300];
   let animated = false;
 
   const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
