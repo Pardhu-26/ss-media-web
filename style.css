@@ -1488,8 +1488,8 @@ iframe { display: block; }
    ============================================ */
 .back-to-top {
   position: fixed;
-  bottom: 32px; right: 32px;
-  z-index: 999;
+  bottom: calc(32px + env(safe-area-inset-bottom)); right: 32px;
+  z-index: 10010;
   width: 46px; height: 46px;
   background: var(--red);
   color: var(--white);
@@ -1503,9 +1503,30 @@ iframe { display: block; }
   transform: translateY(20px);
   transition: var(--transition);
   pointer-events: none;
+  touch-action: manipulation;
 }
 .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
 .back-to-top:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+.btn,
+.review-nav-btn,
+.hamburger,
+.filter-btn,
+.contact-card,
+.video-thumb a,
+.gallery-item,
+.nav-links a,
+.star-picker label,
+.back-to-top,
+.whatsapp-float-btn,
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next,
+.modal-close-btn,
+.review-view-google {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 
 .whatsapp-float-btn {
   position: fixed;
@@ -1598,6 +1619,8 @@ iframe { display: block; }
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 16px;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
   }
   .review-cards::-webkit-scrollbar { display: none; }
   .review-cards { -ms-overflow-style: none; scrollbar-width: none; }
@@ -1635,11 +1658,15 @@ iframe { display: block; }
     border-bottom-right-radius: 20px;
     transform: translateY(-18px);
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     transition: transform 0.38s cubic-bezier(.22,1,.36,1), opacity 0.32s ease;
   }
   .nav-links.open {
     opacity: 1;
     transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
   }
   .nav-links li + li {
     border-top: 1px solid rgba(255,255,255,0.08);
